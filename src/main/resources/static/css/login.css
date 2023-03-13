@@ -1,0 +1,14 @@
+.captcha {
+    width: 10rem;
+    height: 5rem;
+    background: #87cefa;
+    margin: 0 ;
+    position: relative;
+}
+
+.child{
+   position: absolute;
+   top: 25%;
+   left: 50%;
+   transform: translate(-50%, -25%);
+}

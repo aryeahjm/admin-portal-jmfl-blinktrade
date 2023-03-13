@@ -1,20 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Home HTML</title>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 
+    <div class="captcha" >
+        <p class="child" th:text="${captcha}"/>
+    </div>
+
+    <form action="/">
+        <input type="submit" value="Regenerate" />
+    </form>
+
+    <form action="#" th:action="@{/register}" th:object="${user}"
+          method="post">
+        <p>First Name</p>
+        <input type="text" name="name" field="*{name}">
+        <p>Password</p>
+        <input type="password" name="password" field="*{password}">
+        <p>Captcha</p>
+        <input type="text" name="captcha" field="*{captcha}">
+        <Button class="loginbtn" type="submit" value="Sign In" style="color: white">Sign In</Button>
+    </form>
 
 
-<form id="user" action="/register" method="post">
-    <input id="firstName" name="firstName" type="text" value="" placeholder="Employee Id"/>
-    <input id="lastName" name="lastName" type="text" value="" placeholder="Password"/>
-    <input id="captcha" name="captcha" type="text" value="" placeholder="Captcha"/>
-    <button type="submit">Add</button>
-</form>
-
+    <p class="response" th:text="${response}"/>
 
 
 </body>

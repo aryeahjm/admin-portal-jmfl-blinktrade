@@ -1,6 +1,8 @@
 package com.jmfl.blinktrade.dao;
 
+import com.jmfl.blinktrade.model.Session;
 import com.jmfl.blinktrade.utils.NoCaptchaGeneratedException;
+import jakarta.servlet.http.HttpSession;
 
 public interface LoginDao {
 
@@ -13,8 +15,9 @@ public interface LoginDao {
     public void updateUserPreviousSession();
 
 
+
     // Security
-    public String generateExperienceId();
+    public String generateExperienceId(HttpSession session);
     public String getExperienceID();
     public String getCaptcha() throws NoCaptchaGeneratedException;
     public void setCaptcha(String _captcha);

@@ -14,9 +14,4 @@ public class AdminportalApplication {
 		SpringApplication.run(AdminportalApplication.class, args);
 	}
 
-	@GetMapping()
-	public String getFun(){
-		return "home";
-	}
-
 }

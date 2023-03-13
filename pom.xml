@@ -3,6 +3,10 @@
   <groupId>adminportal</groupId>
   <artifactId>adminportal</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
+
+
+
   <build>
     <plugins>
       <plugin>

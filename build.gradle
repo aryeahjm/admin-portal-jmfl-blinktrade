@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id 'eclipse'
 }
 
 group = 'com.jmfl.blinktrade'
@@ -28,6 +29,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'javax.servlet:jstl:1.2'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.44'
+	implementation 'org.springframework.security:spring-security-core:6.0.2'
+	implementation	'com.google.cloud:google-cloud-storage'
+	implementation 'com.google.cloud:google-cloud-datastore'
 	implementation 'com.google.cloud:spring-cloud-gcp-starter'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

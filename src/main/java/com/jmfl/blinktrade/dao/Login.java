@@ -4,13 +4,14 @@ import com.jmfl.blinktrade.constants.Values;
 import com.jmfl.blinktrade.model.Security;
 import com.jmfl.blinktrade.utils.NoCaptchaGeneratedException;
 import com.jmfl.blinktrade.utils.Utils;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Login extends Utils implements LoginDao {
 
     private String captcha = null;
-
+    private String SESSION_KEY = null;
 
     @Override
     public String generateCaptcha(int n) {
@@ -62,13 +63,16 @@ public class Login extends Utils implements LoginDao {
     }
 
     @Override
-    public String generateExperienceId() {
-        return null;
+    public String generateExperienceId(HttpSession session) {
+        String sessionKey = Values.SESSION_KEY_PREFIX +System.currentTimeMillis();
+        SESSION_KEY = sessionKey;
+        session.setAttribute(Values.SESSION_KEY_PROP_NAME,sessionKey);
+        return sessionKey;
     }
 
     @Override
     public String getExperienceID() {
-        return null;
+        return SESSION_KEY;
     }
 
     @Override

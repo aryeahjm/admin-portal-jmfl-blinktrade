@@ -1,12 +1,16 @@
 package com.jmfl.blinktrade.model;
 
-import java.util.Date;
-
 public class User {
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String password;
 
     private String captcha;
+
+    public User(String name, String password, String captcha) {
+        this.name = name;
+        this.password = password;
+        this.captcha = captcha;
+    }
 
     public String getCaptcha() {
         return captcha;
@@ -16,20 +20,20 @@ public class User {
         this.captcha = captcha;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
  
