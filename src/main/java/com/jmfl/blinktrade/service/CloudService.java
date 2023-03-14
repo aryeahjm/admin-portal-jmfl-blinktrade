@@ -22,8 +22,8 @@ public class CloudService {
     public Long getUserType(User user , String kind){
         return cloudDao.getUserType(user,kind);
     }
-    public void updateSession(User user , String kind){
-        cloudDao.updateUserSessionInfo(user.getName().trim(),user.getPassword().trim(),DB_KIND_SESSION_STR);
+    public String updateSession(User user , String kind){
+        return cloudDao.updateUserSessionInfo(user.getName().trim(),user.getPassword().trim(),DB_KIND_SESSION_STR);
     }
 
 

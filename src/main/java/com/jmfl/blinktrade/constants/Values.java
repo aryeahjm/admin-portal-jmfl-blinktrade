@@ -12,6 +12,7 @@ public class Values {
     public static String DB_KIND_STR = "Testing";
     public static String DB_KIND_SESSION_STR= "Session";
 
+    // below values are used in different places so shouldn't be changed
     public static String SESSION_KEY_PROP_NAME="X-SESSION-ATT";
     public static String SESSION_KEY_PREFIX = "AKJLDSFLJLKSJDLFJSLKFD";
     public static String STATE_ERROR_PROP ="Error_State";

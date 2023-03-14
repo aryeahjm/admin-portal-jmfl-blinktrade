@@ -53,14 +53,16 @@ public class CloudImpl implements CloudDao {
 
 
     @Override
-    public void updateUserSessionInfo(String emp_id,String emp_type , String kind) {
+    public String updateUserSessionInfo(String emp_id,String emp_type , String kind) {
         KeyFactory factory = datastore.newKeyFactory().setKind(kind);
         System.out.println("emp_id "+emp_id);
+        String time = getTime();
         FullEntity session = FullEntity.newBuilder(factory.newKey(emp_id))
                 .set(EMP_ID_PROP_NAME,emp_id)
-                .set(SESSION_TIME_DATE_PROP_NAME,getTime())
+                .set(SESSION_TIME_DATE_PROP_NAME,time)
                 .set(EMP_TYPE_PROP_NAME,emp_type)
                 .build();
         datastore.put(session);
+        return time;
     }
 }

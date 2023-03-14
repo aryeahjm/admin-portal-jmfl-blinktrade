@@ -23,7 +23,7 @@ import static com.jmfl.blinktrade.constants.Values.DB_KIND_STR;
  */
 
 @Controller
-public class HomeController {
+public class LoginController {
 
 
     @Autowired
@@ -41,7 +41,7 @@ public class HomeController {
         }
         String s = service.generateCaptcha();
         model.addAttribute("captcha",s);
-        return "home";
+        return "login";
     }
 
 
@@ -85,8 +85,7 @@ public class HomeController {
                         // Saving user credentials , NOTE: Password not encrypted here
                         session.setAttribute(Values.EMP_ID_PROP_NAME,empid);
                         session.setAttribute(Values.EMP_PASS_PROP_NAME,pass);
-
-                        cloudService.updateSession(user,DB_KIND_SESSION_STR);
+                        session.setAttribute(Values.SESSION_TIME_DATE_PROP_NAME,cloudService.updateSession(user,DB_KIND_SESSION_STR));
 
                         return "redirect:/admin";
                     } else if (l == 0) {
@@ -96,9 +95,7 @@ public class HomeController {
                         // Saving user credentials , NOTE: Password not encrypted here
                         session.setAttribute(Values.EMP_ID_PROP_NAME,empid);
                         session.setAttribute(Values.EMP_PASS_PROP_NAME,pass);
-
-                        cloudService.updateSession(user,DB_KIND_SESSION_STR);
-
+                        session.setAttribute(Values.SESSION_TIME_DATE_PROP_NAME,cloudService.updateSession(user,DB_KIND_SESSION_STR));
                         return "redirect:/verifier";
                     }
                     else{
