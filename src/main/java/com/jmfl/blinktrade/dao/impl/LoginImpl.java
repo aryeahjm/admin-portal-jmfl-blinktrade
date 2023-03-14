@@ -1,14 +1,14 @@
-package com.jmfl.blinktrade.dao;
+package com.jmfl.blinktrade.dao.impl;
 
 import com.jmfl.blinktrade.constants.Values;
-import com.jmfl.blinktrade.model.Security;
+import com.jmfl.blinktrade.dao.LoginDao;
 import com.jmfl.blinktrade.utils.NoCaptchaGeneratedException;
 import com.jmfl.blinktrade.utils.Utils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Login extends Utils implements LoginDao {
+public class LoginImpl extends Utils implements LoginDao {
 
     private String captcha = null;
     private String SESSION_KEY = null;

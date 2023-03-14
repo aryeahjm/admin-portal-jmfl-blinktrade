@@ -10,9 +10,13 @@ public class Values {
     public static String EMP_TYPE_PROP_NAME="usertype";
 
     public static String DB_KIND_STR = "Testing";
+    public static String DB_KIND_SESSION_STR= "Session";
 
     public static String SESSION_KEY_PROP_NAME="X-SESSION-ATT";
     public static String SESSION_KEY_PREFIX = "AKJLDSFLJLKSJDLFJSLKFD";
+    public static String STATE_ERROR_PROP ="Error_State";
+
+    public static String SESSION_TIME_DATE_PROP_NAME = "lastlogin";
 
     //
 

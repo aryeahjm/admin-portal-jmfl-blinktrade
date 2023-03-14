@@ -1,31 +1,20 @@
 package com.jmfl.blinktrade.adminportal;
 
-import autovalue.shaded.com.google.auto.service.AutoService;
-import com.google.cloud.datastore.*;
 import com.jmfl.blinktrade.constants.Values;
-import com.jmfl.blinktrade.dao.Login;
-import com.jmfl.blinktrade.dao.LoginDao;
 import com.jmfl.blinktrade.model.User;
 import com.jmfl.blinktrade.service.CloudService;
 import com.jmfl.blinktrade.service.LoginService;
 import com.jmfl.blinktrade.utils.NoCaptchaGeneratedException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import static com.jmfl.blinktrade.constants.Values.DB_KIND_SESSION_STR;
 import static com.jmfl.blinktrade.constants.Values.DB_KIND_STR;
-
-
 /*
     username and password is given , with captcha , then based on the entries we will direct the user experience
     // user type could be admin & verifier
@@ -45,9 +34,9 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String getHome(Model model){
-        if(errorState){
-            errorState = false;
+    public String getHome(Model model,HttpSession session){
+        if(session.getAttribute(Values.STATE_ERROR_PROP)!=null && ((Boolean) session.getAttribute(Values.STATE_ERROR_PROP))){
+            session.setAttribute(Values.STATE_ERROR_PROP,false);
             model.addAttribute("response","Verification failed");
         }
         String s = service.generateCaptcha();
@@ -75,12 +64,11 @@ public class HomeController {
     }
 
 
-    Boolean errorState = false;
     // We will receive user first name and last name in the model
     @PostMapping("/register")
     public String submitLogin(@ModelAttribute("user")User user , HttpSession session) throws NoCaptchaGeneratedException {
-        if(user.getName().trim().isEmpty() || user.getPassword().isEmpty()){
-            return redirectToHomeWithError("User Field Empty");
+        if(user.getName().trim().isEmpty() || user.getPassword().trim().isEmpty()){
+            return redirectToHomeWithError("User Field Empty",session);
         }
         try {
             if(service.validateCaptcha(user.getCaptcha())){
@@ -93,20 +81,34 @@ public class HomeController {
                     if (l == 1) {
                         service.generateThenSaveSessionKey(session);
                         System.out.println("admin");
+
+                        // Saving user credentials , NOTE: Password not encrypted here
+                        session.setAttribute(Values.EMP_ID_PROP_NAME,empid);
+                        session.setAttribute(Values.EMP_PASS_PROP_NAME,pass);
+
+                        cloudService.updateSession(user,DB_KIND_SESSION_STR);
+
                         return "redirect:/admin";
                     } else if (l == 0) {
                         service.generateThenSaveSessionKey(session);
                         System.out.println("verifier");
+
+                        // Saving user credentials , NOTE: Password not encrypted here
+                        session.setAttribute(Values.EMP_ID_PROP_NAME,empid);
+                        session.setAttribute(Values.EMP_PASS_PROP_NAME,pass);
+
+                        cloudService.updateSession(user,DB_KIND_SESSION_STR);
+
                         return "redirect:/verifier";
                     }
                     else{
-                        return redirectToHomeWithError("Invalid user type");
+                        return redirectToHomeWithError("Invalid user type",session);
                     }
-                }else return redirectToHomeWithError("No User Found");
+                }else return redirectToHomeWithError("No User Found",session);
             }
             else{
                 // we will redirect to this page with error message
-                return redirectToHomeWithError("Invalid Captcha");
+                return redirectToHomeWithError("Invalid Captcha",session);
             }
         } catch (NoCaptchaGeneratedException e) {
             System.out.println("error"+e.getMessage());
@@ -114,9 +116,9 @@ public class HomeController {
         }
     }
 
-    private String redirectToHomeWithError(String message){
+    private String redirectToHomeWithError(String message,HttpSession session){
         System.out.println(message);
-        errorState= true;
+        session.setAttribute(Values.STATE_ERROR_PROP,true);
         return "redirect:/";
     }
 }

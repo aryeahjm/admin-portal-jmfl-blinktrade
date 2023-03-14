@@ -1,11 +1,7 @@
 package com.jmfl.blinktrade.service;
 
 
-import com.jmfl.blinktrade.constants.Values;
-import com.jmfl.blinktrade.dao.Login;
 import com.jmfl.blinktrade.dao.LoginDao;
-import com.jmfl.blinktrade.model.Security;
-import com.jmfl.blinktrade.model.Session;
 import com.jmfl.blinktrade.utils.NoCaptchaGeneratedException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
